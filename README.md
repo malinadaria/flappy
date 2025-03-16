@@ -1,2 +1,2 @@
 # flappy
-mishgan
+mishgan app
