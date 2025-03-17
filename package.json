@@ -1,0 +1,18 @@
+{
+  "name": "bistsybird",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malinadaria/flappy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
