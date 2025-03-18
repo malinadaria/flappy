@@ -1,7 +1,6 @@
 const RAD = Math.PI / 180;
 const scrn = document.getElementById("canvas");
 const context = scrn.getContext("2d");
-console.log('proverka',context)
 scrn.tabIndex = 1;
 scrn.addEventListener("click", () => {
   switch (state.curr) {

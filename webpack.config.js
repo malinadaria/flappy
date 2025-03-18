@@ -7,7 +7,7 @@ module.exports = {
   externals: [nodeExternals()],
   entry: './index.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
   module: {
@@ -16,23 +16,14 @@ module.exports = {
         test: /\.node$/,
         loader: "node-loader",
       },
-      {test: /.txt$/, use: 'raw-loader'},
-      {test: /\.css$/, use: 'raw-loader'},
       {
-        test: /\.(png|jpg|svg|gif|mp3)$/,
-        use: ['file-loader'],
+        test: /\.css$/i,
+        use: ["css-loader"],
       },
       {
-        test: /\.wav$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: './sound/[name].[ext]',  // путь и имя файла
-            }
-          }
-        ]
-      }
+        test: /\.(png|jpg|svg|gif|mp3)$/,
+        use: 'file-loader',
+      },
     ],
   },
 
