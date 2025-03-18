@@ -1,8 +1,10 @@
 // webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require("webpack-node-externals");
 module.exports = {
   target: 'node',
+  externals: [nodeExternals()],
   entry: './index.js',
   output: {
     filename: 'bundle.js',
@@ -10,6 +12,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
       {test: /.txt$/, use: 'raw-loader'},
       {test: /\.css$/, use: 'raw-loader'},
       {
