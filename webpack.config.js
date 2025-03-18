@@ -10,10 +10,27 @@ module.exports = {
   },
   module: {
     rules: [
+      {test: /.txt$/, use: 'raw-loader'},
+      {test: /\.css$/, use: 'raw-loader'},
       {
-        test: /\.css$/, // Регулярное выражение для обработки файлов с расширением .css
-        use: ['style-loader', 'css-loader'], // Загрузчики, используемые для обработки CSS-файлов
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
       },
+      {
+        test: /\.wav$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'sfx/[name].[hash].[ext]',  // путь и имя файла
+            }
+          }
+        ]
+      }
     ],
   },
 

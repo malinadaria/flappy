@@ -4,7 +4,6 @@
   "description": "mishgan app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "start": "webpack serve --config webpack.config.js --open"
   },
@@ -21,7 +20,9 @@
   "homepage": "https://github.com/malinadaria/flappy#readme",
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.3",
+    "raw-loader": "^4.0.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1",
