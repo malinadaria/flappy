@@ -1,6 +1,7 @@
 const RAD = Math.PI / 180;
 const scrn = document.getElementById("canvas");
-const sctx = scrn.getContext("2d");
+const context = scrn.getContext("2d");
+console.log('proverka',context)
 scrn.tabIndex = 1;
 scrn.addEventListener("click", () => {
   switch (state.curr) {
@@ -67,7 +68,7 @@ const gnd = {
   y: 0,
   draw: function () {
     this.y = parseFloat(scrn.height - this.sprite.height);
-    sctx.drawImage(this.sprite, this.x, this.y);
+    context.drawImage(this.sprite, this.x, this.y);
   },
   update: function () {
     if (state.curr != state.Play) return;
@@ -81,7 +82,7 @@ const bg = {
   y: 0,
   draw: function () {
     y = parseFloat(scrn.height - this.sprite.height);
-    sctx.drawImage(this.sprite, this.x, y);
+    context.drawImage(this.sprite, this.x, y);
   },
 };
 const pipe = {
@@ -93,8 +94,8 @@ const pipe = {
   draw: function () {
     for (let i = 0; i < this.pipes.length; i++) {
       let p = this.pipes[i];
-      sctx.drawImage(this.top.sprite, p.x, p.y);
-      sctx.drawImage(
+      context.drawImage(this.top.sprite, p.x, p.y);
+      context.drawImage(
         this.bot.sprite,
         p.x,
         p.y + parseFloat(this.top.sprite.height) + this.gap
@@ -136,11 +137,11 @@ const bird = {
   draw: function () {
     let h = this.animations[this.frame].sprite.height;
     let w = this.animations[this.frame].sprite.width;
-    sctx.save();
-    sctx.translate(this.x, this.y);
-    sctx.rotate(this.rotatation * RAD);
-    sctx.drawImage(this.animations[this.frame].sprite, -w / 2, -h / 2);
-    sctx.restore();
+    context.save();
+    context.translate(this.x, this.y);
+    context.rotate(this.rotatation * RAD);
+    context.drawImage(this.animations[this.frame].sprite, -w / 2, -h / 2);
+    context.restore();
   },
   update: function () {
     let r = parseFloat(this.animations[0].sprite.width) / 2;
@@ -237,8 +238,8 @@ const UI = {
         this.tx = parseFloat(scrn.width - this.tap[0].sprite.width) / 2;
         this.ty =
           this.y + this.getReady.sprite.height - this.tap[0].sprite.height;
-        sctx.drawImage(this.getReady.sprite, this.x, this.y);
-        sctx.drawImage(this.tap[this.frame].sprite, this.tx, this.ty);
+        context.drawImage(this.getReady.sprite, this.x, this.y);
+        context.drawImage(this.tap[this.frame].sprite, this.tx, this.ty);
         break;
       case state.gameOver:
         this.y = parseFloat(scrn.height - this.gameOver.sprite.height) / 2;
@@ -246,25 +247,25 @@ const UI = {
         this.tx = parseFloat(scrn.width - this.tap[0].sprite.width) / 2;
         this.ty =
           this.y + this.gameOver.sprite.height - this.tap[0].sprite.height;
-        sctx.drawImage(this.gameOver.sprite, this.x, this.y);
-        sctx.drawImage(this.tap[this.frame].sprite, this.tx, this.ty);
+        context.drawImage(this.gameOver.sprite, this.x, this.y);
+        context.drawImage(this.tap[this.frame].sprite, this.tx, this.ty);
         break;
     }
     this.drawScore();
   },
   drawScore: function () {
-    sctx.fillStyle = "#FFFFFF";
-    sctx.strokeStyle = "#000000";
+    context.fillStyle = "#FFFFFF";
+    context.strokeStyle = "#000000";
     switch (state.curr) {
       case state.Play:
-        sctx.lineWidth = "2";
-        sctx.font = "35px Squada One";
-        sctx.fillText(this.score.curr, scrn.width / 2 - 5, 50);
-        sctx.strokeText(this.score.curr, scrn.width / 2 - 5, 50);
+        context.lineWidth = "2";
+        context.font = "35px Squada One";
+        context.fillText(this.score.curr, scrn.width / 2 - 5, 50);
+        context.strokeText(this.score.curr, scrn.width / 2 - 5, 50);
         break;
       case state.gameOver:
-        sctx.lineWidth = "2";
-        sctx.font = "40px Squada One";
+        context.lineWidth = "2";
+        context.font = "40px Squada One";
         let sc = `SCORE :     ${this.score.curr}`;
         try {
           this.score.best = Math.max(
@@ -273,13 +274,13 @@ const UI = {
           );
           localStorage.setItem("best", this.score.best);
           let bs = `BEST  :     ${this.score.best}`;
-          sctx.fillText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
-          sctx.strokeText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
-          sctx.fillText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
-          sctx.strokeText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
+          context.fillText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
+          context.strokeText(sc, scrn.width / 2 - 80, scrn.height / 2 + 0);
+          context.fillText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
+          context.strokeText(bs, scrn.width / 2 - 80, scrn.height / 2 + 30);
         } catch (e) {
-          sctx.fillText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
-          sctx.strokeText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
+          context.fillText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
+          context.strokeText(sc, scrn.width / 2 - 85, scrn.height / 2 + 15);
         }
 
         break;
@@ -324,8 +325,8 @@ function update() {
 }
 
 function draw() {
-  sctx.fillStyle = "#30c0df";
-  sctx.fillRect(0, 0, scrn.width, scrn.height);
+  context.fillStyle = "#30c0df";
+  context.fillRect(0, 0, scrn.width, scrn.height);
   bg.draw();
   pipe.draw();
 
