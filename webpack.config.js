@@ -26,7 +26,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'sfx/[name].[hash].[ext]',  // путь и имя файла
+              name: './sfx/[name].[ext]',  // путь и имя файла
             }
           }
         ]
