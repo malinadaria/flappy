@@ -13,12 +13,8 @@ module.exports = {
       {test: /.txt$/, use: 'raw-loader'},
       {test: /\.css$/, use: 'raw-loader'},
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'file-loader',
-          },
-        ],
+        test: /\.(png|jpg|svg|gif|mp3)$/,
+        use: ['file-loader'],
       },
       {
         test: /\.wav$/,
@@ -26,7 +22,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: './sfx/[name].[ext]',  // путь и имя файла
+              name: './sound/[name].[ext]',  // путь и имя файла
             }
           }
         ]
