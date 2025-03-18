@@ -5,20 +5,17 @@ const nodeExternals = require("webpack-node-externals");
 module.exports = {
   target: 'node',
   externals: [nodeExternals()],
-  entry: './index.js',
+  entry: ["./style.css", './index.js'],
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
+
   module: {
     rules: [
       {
-        test: /\.node$/,
-        loader: "node-loader",
-      },
-      {
         test: /\.css$/i,
-        use: ["css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|svg|gif|mp3)$/,
