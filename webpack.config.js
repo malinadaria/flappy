@@ -1,28 +1,45 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    assetModuleFilename: 'assets/[hash][ext][query]',
-    clean: true,
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.js$/, // Обработка JS файлов
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader', // Использование Babel
+        },
+      },
+      {
+        test: /\.css$/, // Обработка CSS файлов
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.mp3$/i,
-        type: 'asset/resource',
+        test: /\.(png|jpg|jpeg|gif|svg|mp3)$/, // Обработка изображений и звуков
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'assets/[name].[hash].[ext]',
+          },
+        },
       },
     ],
   },
-  mode: 'production',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html', // Шаблон HTML в src
+    }),
+  ],
+  devServer: {
+    static: path.join(__dirname, 'dist'), // Заменили contentBase на static
+    compress: true,
+    port: 9000,
+  },
 };
