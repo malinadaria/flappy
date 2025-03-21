@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    assetModuleFilename: 'assets/[name].[hash][ext][query]', // Это позволит генерировать имена для статичных файлов
   },
   module: {
     rules: [
@@ -26,10 +27,11 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: 'assets/[name].[hash].[ext]',
+            name: 'assets/[name].[ext]', // Генерация имени с хешем для кэширования
           },
         },
-      },
+      }
+
     ],
   },
   plugins: [
@@ -38,8 +40,9 @@ module.exports = {
     }),
   ],
   devServer: {
-    static: path.join(__dirname, 'dist'), // Заменили contentBase на static
+    static: path.join(__dirname, 'dist'), // Папка для статичных файлов
     compress: true,
     port: 9000,
+    open: true, // Автоматически открывать браузер при запуске devServer
   },
 };
